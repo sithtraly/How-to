@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Floating Menu</title>
+  <link rel="stylesheet" href="/styles/main.css">
+
+  <style>
+    * {
+      transition: 0.5s;
+    }
+
+    .menu-wrapper {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .menu-wrapper .menu {
+      --size: 60px;
+      --top: -35px;
+      width: calc(var(--size) * 5);
+      height: var(--size);
+      padding: 0 15px;
+      border-radius: 5px;
+      background: var(--dark);
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+
+    .menu-wrapper .menu .active-bg {
+      position: absolute;
+      background: var(--primary);
+      width: var(--size);
+      height: var(--size);
+      top: calc(var(--top) - 5px);
+      border-radius: var(--size);
+      border: 5px solid var(--light);
+    }
+
+    .menu-wrapper .menu .active-bg::before,
+    .menu-wrapper .menu .active-bg::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      top: 35px;
+    }
+
+    .menu-wrapper .menu .active-bg::before {
+      left: -22px;
+      border-top-right-radius: 10px;
+      box-shadow: 1px -14px 0px -1px var(--light);
+    }
+
+    .menu-wrapper .menu .active-bg::after {
+      right: -22px;
+      border-top-left-radius: 10px;
+      box-shadow: -1px -14px 0px 1px var(--light);
+    }
+
+    .menu-wrapper .menu .menu-item {
+      color: var(--light);
+      width: var(--size);
+      height: var(--size);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      position: relative;
+    }
+
+    .menu-wrapper .menu .menu-item .menu-name {
+      position: absolute;
+      bottom: 0;
+      color: var(--dark);
+    }
+
+    .menu-wrapper .menu .menu-item.active .menu-icon {
+      transform: translateY(var(--top));
+    }
+
+    .menu-wrapper .menu .menu-item.active .menu-name {
+      color: var(--light);
+      transform: translateY(-10px);
+    }
+
+    .menu-wrapper .menu .active-bg:has(~ .menu-item.active:nth-of-type(1)) {
+      left: calc(10px + calc(60px * 0));
+    }
+
+    .menu-wrapper .menu .active-bg:has(~ .menu-item.active:nth-of-type(2)) {
+      left: calc(10px + calc(60px * 1));
+    }
+
+    .menu-wrapper .menu .active-bg:has(~ .menu-item.active:nth-of-type(3)) {
+      left: calc(10px + calc(60px * 2));
+    }
+
+    .menu-wrapper .menu .active-bg:has(~ .menu-item.active:nth-of-type(4)) {
+      left: calc(10px + calc(60px * 3));
+    }
+
+    .menu-wrapper .menu .active-bg:has(~ .menu-item.active:nth-of-type(5)) {
+      left: calc(10px + calc(60px * 4));
+    }
+  </style>
+</head>
+
+<body>
+  <div class="menu-wrapper">
+    <div class="menu">
+      <div class="active-bg"></div>
+      <a href="#" class="menu-item active">
+        <span class="menu-icon mat-icon fill">home_app_logo</span>
+        <span class="menu-name">Home</span>
+      </a>
+      <a href="#" class="menu-item">
+        <span class="menu-icon mat-icon fill">feed</span>
+        <span class="menu-name">News</span>
+      </a>
+      <a href="#" class="menu-item">
+        <span class="menu-icon mat-icon fill">person</span>
+        <span class="menu-name">Profile</span>
+      </a>
+      <a href="#" class="menu-item">
+        <span class="menu-icon mat-icon fill">mail</span>
+        <span class="menu-name">Message</span>
+      </a>
+      <a href="#" class="menu-item">
+        <span class="menu-icon mat-icon fill">settings</span>
+        <span class="menu-name">Settings</span>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll('a.menu-item')
+    for (const btn of buttons) {
+      btn.addEventListener('click', function () {
+        removeActiveButton()
+        this.classList.add('active')
+      })
+    }
+
+    function removeActiveButton() {
+      for (const btn of buttons) {
+        btn.classList.remove('active')
+      }
+    }
+  </script>
+</body>
+
+</html>
